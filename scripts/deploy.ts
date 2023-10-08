@@ -1,24 +1,30 @@
-import { ethers } from "hardhat";
+const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const Agreement = await hre.ethers.deployContract("AgreementContract", []);
 
-  const lockedAmount = ethers.parseEther("0.001");
+  await Agreement.waitForDeployment();
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  console.log(`Agreement contract deployed to ${Agreement.target}`);
 
-  await lock.waitForDeployment();
+  const SBT = await hre.ethers.deployContract("SoulBoundToken", [
+    Agreement.target,
+  ]);
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  await SBT.waitForDeployment();
+
+  console.log(`SBT contract deployed to ${SBT.target}`);
+
+  //now we must immediately initialize the nft contract address into our Agreement
+  try {
+    const tx = await Agreement.setNFTAddress(SBT.target);
+    console.log("TX DONE ______", tx);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
+//DEFAULT BY HARDHAT:
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main().catch((error) => {
