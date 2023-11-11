@@ -16,7 +16,7 @@ contract AgreementContract {
     }
 
     // Soul Bond NFT contract instance
-    ISoulBondToken public nftContract;
+    ISoulBoundToken public nftContract;
 
     // Counter for agreement IDs
     uint256 public agreementCounter;
@@ -135,6 +135,6 @@ contract AgreementContract {
     //function called by owner to set NFT contract address
     function setNFTAddress(address _nftContractAddress) public {
         require(msg.sender == owner, "not allowed");
-        nftContract = ISoulBondToken(_nftContractAddress);
+        nftContract = ISoulBoundToken(_nftContractAddress);
     }
 }
