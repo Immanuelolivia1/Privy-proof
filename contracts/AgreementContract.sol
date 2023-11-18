@@ -69,12 +69,14 @@ contract AgreementContract {
         initiator[msg.sender].push(agreementCounter);
         party[_party2].push(agreementCounter);
 
+        party1SignAgreement(agreementCounter);
+
         // Emit an event for the new agreement
         emit AgreementCreated(agreementCounter, msg.sender, _party2);
     }
 
     // Function for party1 to sign the agreement
-    function party1SignAgreement(uint256 _agreementId) public {
+    function party1SignAgreement(uint256 _agreementId) private {
         Agreement storage agreement = agreements[_agreementId];
         require(msg.sender == agreement.party1, "You are not party1");
         require(!agreement.party1Signed, "Party1 already signed");
@@ -96,10 +98,14 @@ contract AgreementContract {
 
     function mintNFTAgreement(uint256 _agreementId) public {
         Agreement storage agreement = agreements[_agreementId];
-        require(msg.sender == agreement.party2, "not allowed");
-        require(msg.sender == agreement.party1, "not allowed");
-        require(agreement.party1Signed, "Party1 has not signed ");
-        require(agreement.party2Signed, "Party2 hasnt signed");
+        require(
+            msg.sender == agreement.party2 || msg.sender == agreement.party1,
+            "not allowed"
+        );
+        require(
+            agreement.party1Signed && agreement.party2Signed,
+            "A party hasnt signed"
+        );
 
         string memory metadataURI = agreement.tokenUri;
 
