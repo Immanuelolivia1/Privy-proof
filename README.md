@@ -45,10 +45,9 @@ This smart contract is developed using the Ethereum blockchain and leverages the
    - The owner can set the address of the NFT contract using the `setNFTAddress` function.
 
 ## Deployment
-
 - This Contract was deployed to the polygon blockchain 
-- Agreement contract deployed to [0xeb166C475f6cD6D591AA41859408f3a6984cC209](https://mumbai.polygonscan.com/address/0xeb166C475f6cD6D591AA41859408f3a6984cC209)
-- SBT contract deployed to [0x192d50207A2fDF6BED7A96AFbBb9578Fd401aC85](https://mumbai.polygonscan.com/address/0x192d50207A2fDF6BED7A96AFbBb9578Fd401aC85)
+- Agreement contract deployed to [0x9C8AAfAAC33718c9CdD478F11F9Ed37c4Fc436c8](https://celoscan.io/address/0x9C8AAfAAC33718c9CdD478F11F9Ed37c4Fc436c8)
+- SBT contract deployed to [0x1b9abe4b1707A6606dA78938Da6b5Fd6fb19Ec00](https://celoscan.io/address/0x1b9abe4b1707A6606dA78938Da6b5Fd6fb19Ec00)
 - The NFT contract address was set using the `setNFTAddress` function to link the NFT contract to this agreement contract.
 
 ## License
